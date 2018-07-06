@@ -3,7 +3,7 @@ import numpy as np
 from open3d import *
 from statistics import *
 
-def calculateDiffs(pcTarget, pcSource, sourceTree):
+def calculateDiffs(pcTarget, pcSource, sourceTree, thre):
     mind = 1000
     maxd = 0
     sumd = 0.0
@@ -26,7 +26,7 @@ def calculateDiffs(pcTarget, pcSource, sourceTree):
             maxd = d
 
         if thre > d:
-            nCorrect += 1
+            nCorrect = nCorrect +  1
 
     stas = statistics()
     stas.min = mind
@@ -34,13 +34,14 @@ def calculateDiffs(pcTarget, pcSource, sourceTree):
     stas.avg = sumd / nTotal
     stas.stddev = np.sqrt(sumd2 / nTotal - ((sumd/nTotal)*(sumd/nTotal)))
     stas.numCorrect = nCorrect
-    stas.n = nTotal
+    stas.numTotal = nTotal
+    stas.threshold = thre
 
     return stas
 
 if __name__ == "__main__":
     
-    thre = sys.argv[1]
+    thre = float(sys.argv[1])
     GtPath = sys.argv[2]
     print(f"GT Mesh : {GtPath}")
 
@@ -55,9 +56,9 @@ if __name__ == "__main__":
         print(f"Source Mesh : {sPaths[i]}")
         pc = read_point_cloud(sPaths[i])
         print("iteration in no GT")
-        print(calculateDiffs(pc, pcdg, GtTree))
+        print(calculateDiffs(pc, pcdg, GtTree, thre))
 
 
         sTree = KDTreeFlann(pc)        
         print("iteration in GT")
-        print(calculateDiffs(pcdg, pc, sTree))
+        print(calculateDiffs(pcdg, pc, sTree, thre))
