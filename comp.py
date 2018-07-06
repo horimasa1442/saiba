@@ -26,7 +26,7 @@ def calculateDiffs(pcTarget, pcSource, sourceTree):
             maxd = d
 
         if thre > d:
-            nCorrect++
+            nCorrect += 1
 
     stas = statistics()
     stas.min = mind
