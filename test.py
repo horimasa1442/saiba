@@ -15,6 +15,7 @@ if __name__ == "__main__":
     pcd.colors[1500] = [1, 0, 0]
 
     print("Find its 200 nearest neighbors, paint blue.")
+
     [k, idx, _] = pcd_tree.search_knn_vector_3d(pcd.points[1500], 200)
     np.asarray(pcd.colors)[idx[1:], :] = [0, 0, 1]
 
