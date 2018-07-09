@@ -55,10 +55,10 @@ if __name__ == "__main__":
     for i in range(len(sPaths)):
         print(f"Source Mesh : {sPaths[i]}")
         pc = read_point_cloud(sPaths[i])
-        print("iteration in no GT")
+        print("precision")
         print(calculateDiffs(pc, pcdg, GtTree, thre))
 
 
         sTree = KDTreeFlann(pc)        
-        print("iteration in GT")
+        print("completness")
         print(calculateDiffs(pcdg, pc, sTree, thre))
