@@ -59,3 +59,5 @@ if __name__ == "__main__":
         pc = read_point_cloud(sPaths[i])
         print("precision")
         print(calculateDiffsWithErrors(pc, pcdg, GtTree, thre, errorss[i]))
+
+    
